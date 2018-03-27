@@ -267,8 +267,6 @@ public class ImpresorLCD {
 
         imprimirMatrizDigitos();
     }
-
-    ///////////////////////////////////////// MODIFICAR
     
      /**
      *
@@ -278,6 +276,7 @@ public class ImpresorLCD {
      * @param comando Entrada que contiene el size del segmento de los digito
      * y el numero a imprimir
      * @param espacioDigitos Espacio Entre digitos
+     * @throws IllegalArgumentException Indica si el comando no cumple con las restricciones prestablecidas
      */  
     public void procesar(String comando, int espacioDigitos) 
     		throws IllegalArgumentException {   
