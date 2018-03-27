@@ -4,18 +4,18 @@ import java.util.Scanner;
 public class ProcesadorEntrada {
 
 	// Define la cadena que identifica el final de la entrada
-	private static final String CADENA_FINAL = "0,0";
+	public static final String CADENA_FINAL = "0,0";
 	
 	// Definen los limites para la cantidad de espacios permitidos
-	private static final int MINIMO_ESPACIOS = 0;
-	private static final int MAXIMO_ESPACIOS = 5;
+	public static final int MINIMO_ESPACIOS = 0;
+	public static final int MAXIMO_ESPACIOS = 5;
 	
 	// Definen los limites para el tamaño de un comando
-	private static final int SIZE_MINIMO = 1;
-	private static final int SIZE_MAXIMO = 10;
+	public static final int SIZE_MINIMO = 1;
+	public static final int SIZE_MAXIMO = 10;
 	
 	// Define el separador usado para el tamaño y los digitos en un comando
-	private static final String SEPARADOR = ",";
+	public static final String SEPARADOR = ",";
     
     /**
      * Valida si una cadena representa un numero
