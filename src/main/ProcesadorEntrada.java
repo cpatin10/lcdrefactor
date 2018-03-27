@@ -1,6 +1,4 @@
 package main;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ProcesadorEntrada {
@@ -18,43 +16,6 @@ public class ProcesadorEntrada {
 	
 	// Define el separador usado para el tamaño y los digitos en un comando
 	private static final String SEPARADOR = ",";
-	
-	// Lista de Comandos, se llena de acuerdo a la entrada del usuario
-	private List<Comando> listaComando;
-	
-    // Cantidad de espacios entre los dígitos a escribir
-	private int espacioDigitos;
-    
-//    public ProcesadorEntrada() throws IllegalArgumentException{ 
-//    	listaComando = new ArrayList<>();   
-//    	try (Scanner lector = new Scanner(System.in)) {    	        
-//	        procesarEspacioDigitos(lector);
-//	        procesarListaComando(lector);  
-//    	}
-//    }
-    
-    /**
-     * Hace la lectura de los espacios que van a separar a los dígitos
-     * Se almacena la entrada en espacioDigitos
-     * 
-     * @param lector Scanner
-     * @throws IllegalArgumentException Indica que el valor ingresado no cumple con la restriccion (no es valor numerico)
-     */
-//    private void procesarEspacioDigitos(Scanner lector) 
-//    		throws IllegalArgumentException {
-//    	
-//        System.out.print("Ingrese el número de espacios "
-//        		+ "que desea usar para separar los dígitos (" 
-//        		+ MINIMO_ESPACIOS + " a " + MAXIMO_ESPACIOS + "): ");
-//    	String entrada = lector.next();		        
-//        if (esNumero(entrada)) {
-//        	this.espacioDigitos = Integer.parseInt(entrada);        	
-//        	verificarEspacios(); 
-//        } else { 
-//        	throw new IllegalArgumentException("Cadena \"" + entrada
-//        			+ "\" no es un entero");
-//        }
-//    }
     
     /**
      * Valida si una cadena representa un numero
@@ -87,6 +48,14 @@ public class ProcesadorEntrada {
         }
     }
     
+    /**
+     * Define el valor de los espacios entre los digitos, proveniente de una cadena, 
+     * 	el cual cumple con las restricciones dadas
+     * 
+     * @param cadena Cadena
+     * @return Entero
+     * @throws IllegalArgumentException Indica si la cadena dada no cumple con las restricciones de los espacios
+     */
     public static int procesarEspacioDigitos(String cadena)
     		throws IllegalArgumentException {
     	
@@ -103,6 +72,12 @@ public class ProcesadorEntrada {
     	return espacioDigitos;
     }
     
+    /**
+     * Indica si la cadena dada indica es la ultima cadena (fin de los comandos)
+     * 
+     * @param cadena Cadena
+     * @return Verdadero si la cadena es la ultima y falso si no lo es
+     */
     public static boolean finComandos(String cadena) {
     	if (cadena.equalsIgnoreCase(CADENA_FINAL)) {
     		return true;
@@ -148,6 +123,14 @@ public class ProcesadorEntrada {
         }
     } 
     
+    /**
+     * Recibe un comando y lo separa en sus respectivas partes de acuerdo al SEPARADOR
+     * Se asegura que el comando cumple con las restricciones establecidas
+     * 
+     * @param cadena Comando
+     * @return Arreglo de cadenas con las partes del comando
+     * @throws IllegalArgumentException Indica que el comando no cumple con el formato predefinido
+     */
     public static String[] procesarComando(String cadena) 
     		throws IllegalArgumentException {
     	
@@ -169,6 +152,14 @@ public class ProcesadorEntrada {
     	return true;
     }
     
+    /**
+     * Transforma la cadena dada a un entero que representa el tamaño de un digito a imprimir
+     * Se valida que el tamaño si cumpla con las restricciones preestablecidas
+     * 
+     * @param cadena Cadena
+     * @return Entero size
+     * @throws IllegalArgumentException Indica que el valor dado no cumple con las restricciones para size
+     */
     public static int procesarSize(String cadena) 
     		throws IllegalArgumentException {
     	
@@ -188,6 +179,14 @@ public class ProcesadorEntrada {
     	return size;
     }
     
+    /**
+     * Transforma la cadena dada a un entero que representa el numero con los digitos a imprimir
+     * Se valida que el numero si cumpla con las restricciones preestablecidas 
+     * 
+     * @param cadena Cadena
+     * @return Entero numero
+     * @throws IllegalArgumentException Indica que el valor dado no cumple con las restricciones para size
+     */
     public static int procesarNumero(String cadena)
     		throws IllegalArgumentException {
     	
@@ -206,93 +205,4 @@ public class ProcesadorEntrada {
     	
     	return numero;
     }
-    
-    /**
-     * Procesa los comandos dados por el usuario que serán almacenados en listaComando
-     * Si el usuario ingresa un comando invalido el método se llama a sí mismo para 
-     * 	continuar el ciclo hasta encontrar CADENA_FINAL
-     * 
-     * @param lector Scanner
-     */
-    private void procesarListaComando(Scanner lector) {
-    	try {
-    		String entrada = leerEntradaComando(lector);
-        	while (!entrada.equalsIgnoreCase(CADENA_FINAL)) {
-        		procesarComando(entrada);
-        		entrada = leerEntradaComando(lector);
-        	}
-    	} catch (IllegalArgumentException e) {
-    		System.out.println(e.getMessage());
-    		procesarListaComando(lector);
-    	}    	
-    }
-    
-    /**
-     * 
-     * Lee un solo comando ingresado pore el usuario
-     * 
-     * @param lector Scanner
-     * @return Comando ingresado (String)
-     */
-    private String leerEntradaComando(Scanner lector) {
-    	System.out.print("Entrada en formato <Size,digitos>: ");
-        return lector.next();
-    }
-    
-    
-    /**
-     * Procesa un comando leido, convirtiendolo del tipo String a Comando
-     * 
-     * @param entrada Cadena que representa el comando
-     * @throws IllegalArgumentException Indica si la cadena dada no cumple con las restricciones para definir un comando
-     */
-//    private void procesarComando(String entrada) throws IllegalArgumentException {
-//    	
-//    	int size;
-//    	String[] parametros = separarComando(entrada);
-//    	validarCantidadParametros(parametros.length, entrada);
-//    	size = procesarSize(parametros[0]);
-//    	listaComando.add(new Comando(size, parametros[1]));
-//    }    
-    
-    /**
-     * Procesa el tamaño de un comando a partir de la cadena dada
-     * 
-     * @param cadena Cadena
-     * @return
-     * @throws IllegalArgumentException Indica que la cadena no cumple con las restricciones especificadas
-     */
-//    private int procesarSize(String cadena) throws IllegalArgumentException{
-//    	int size;
-//    	if (!esNumero(cadena)) {
-//    		throw new IllegalArgumentException("Parametro Size [" + cadena
-//                    + "] no es un numero");
-//    	}
-//    	
-//    	size = Integer.parseInt(cadena);
-//    	if (!sizeValido(size)) {
-//    		throw new IllegalArgumentException("El parametro size [" + size
-//                    + "] debe estar entre 1 y 10");
-//    	}
-//    	
-//    	return size;
-//    }
-    
-    /**
-     * Getter for espacioDigitos
-     * 
-     * @return
-     */
-//    public int getEspacioDigitos() {
-//    	return espacioDigitos;
-//    }
-    
-    /**
-     * Getter for listaComandos
-     * 
-     * @return
-     */
-//    public List<Comando> getListaComando() {
-//    	return listaComando;
-//    }
 }
