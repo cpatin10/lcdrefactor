@@ -1,3 +1,4 @@
+package main;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,13 +34,17 @@ public class ImpresorLCD {
     private int filasMatrizDigitos;
     private int columnasMatrizDigitos;
 
+    /**
+     * Se Inicializan los puntos fijos con el tamaño dado
+     */
     public ImpresorLCD() {
-        // Inicializa variables
-        this.puntoFijo1 = new int[2];
-        this.puntoFijo2 = new int[2];
-        this.puntoFijo3 = new int[2];
-        this.puntoFijo4 = new int[2];
-        this.puntoFijo5 = new int[2];
+        int puntoFijoSize = 2;
+        
+        this.puntoFijo1 = new int[puntoFijoSize];
+        this.puntoFijo2 = new int[puntoFijoSize];
+        this.puntoFijo3 = new int[puntoFijoSize];
+        this.puntoFijo4 = new int[puntoFijoSize];
+        this.puntoFijo5 = new int[puntoFijoSize];
     }
 
     /**
@@ -212,6 +217,19 @@ public class ImpresorLCD {
 	}
 
     /**
+     * Imprime la matrizDigitos
+     */
+	private void imprimirMatrizDigitos() {
+		// Imprime matriz
+        for (int i = 0; i < this.filasMatrizDigitos; i++) {
+            for (int j = 0; j < this.columnasMatrizDigitos; j++) {
+                System.out.print(this.matrizDigitos[i][j]);
+            }
+            System.out.println();
+        }
+	}
+
+    /**
      *
      * Metodo encargado de imprimir un numero
      *
@@ -247,13 +265,7 @@ public class ImpresorLCD {
             adicionarDigito(numero);
         }
 
-        // Imprime matriz
-        for (int i = 0; i < this.filasMatrizDigitos; i++) {
-            for (int j = 0; j < this.columnasMatrizDigitos; j++) {
-                System.out.print(this.matrizDigitos[i][j]);
-            }
-            System.out.println();
-        }
+        imprimirMatrizDigitos();
     }
 
     ///////////////////////////////////////// MODIFICAR
@@ -267,8 +279,14 @@ public class ImpresorLCD {
      * y el numero a imprimir
      * @param espacioDigitos Espacio Entre digitos
      */  
-    public void procesar(Comando comando, int espacioDigitos) throws IllegalArgumentException {       
-        imprimirNumero(comando.getSize(), comando.getDigitos(), espacioDigitos);
+    public void procesar(String comando, int espacioDigitos) 
+    		throws IllegalArgumentException {   
+
+    	//Se hace el split de la cadena si es posible
+    	String[] parametros = ProcesadorEntrada.procesarComando(comando);        
+        int size = ProcesadorEntrada.procesarSize(parametros[0]);
+
+        imprimirNumero(size, parametros[1], espacioDigitos);
 
     }
 
