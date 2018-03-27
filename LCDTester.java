@@ -11,65 +11,37 @@ public class LCDTester {
     public static void main(String[] args) {
 
         // Establece los segmentos de cada numero
-        List<String> listaComando = new ArrayList<>();
-        String comando;
-        int espacioDig;
+        
+    	//List<String> listaComando = new ArrayList<>();
+    	List<Comando> listaComando = new ArrayList<>();
+        int espacioDigitos;
         
         try {
 
-            try (Scanner lector = new Scanner(System.in)) {
-                
-                System.out.print("Espacio entre Digitos (0 a 5): ");
-                comando = lector.next();
-
-                // Valida si es un numero
-                if (ImpresorLCD.isNumeric(comando)) 
-                {
-                    espacioDig = Integer.parseInt(comando);
-                    
-                    // se valida que el espaciado este entre 0 y 5
-                    if(espacioDig <0 || espacioDig >5)
-                    {
-                        throw new IllegalArgumentException("El espacio entre "
-                                + "digitos debe estar entre 0 y 5");
-                    }
-                    
-                } 
-                else 
-                {
-                    throw new IllegalArgumentException("Cadena " + comando
-                            + " no es un entero");
-                }
-                
-                do
-                {
-                    System.out.print("Entrada: ");
-                    comando = lector.next();
-                    if(!comando.equalsIgnoreCase(CADENA_FINAL))
-                    {
-                        listaComando.add(comando);
-                    }
-                }while (!comando.equalsIgnoreCase(CADENA_FINAL)); 
-            }
+        	ProcesadorEntrada procesadorEntrada = new ProcesadorEntrada();
+        	espacioDigitos = procesadorEntrada.getEspacioDigitos();
+        	listaComando = procesadorEntrada.getListaComando();           
 
             ImpresorLCD impresorLCD = new ImpresorLCD();
 
-            Iterator<String> iterator = listaComando.iterator();
+            Iterator<Comando> iterator = listaComando.iterator();
             while (iterator.hasNext()) 
             {
-                try 
-                {
-                    impresorLCD.procesar(iterator.next(), espacioDig);
-                } catch (Exception ex) 
-                {
-                    System.out.println("Error: "+ex.getMessage());
-                }
+                imprimirComando(espacioDigitos, impresorLCD, iterator);
             }
         } catch (Exception ex) 
         {
-            System.out.println("Error: "+ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
         }
 
     }
+
+	private static void imprimirComando(int espacioDigitos, ImpresorLCD impresorLCD, Iterator<Comando> iterator) {
+		try {
+		    impresorLCD.procesar(iterator.next(), espacioDigitos);
+		} catch (Exception ex) {
+		    System.out.println("Error: " + ex.getMessage());
+		}
+	}
 
 }

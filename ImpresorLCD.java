@@ -5,35 +5,41 @@ import java.util.List;
 public class ImpresorLCD {
 
     // Puntos fijos
-    private final int[] pf1;
-    private final int[] pf2;
-    private final int[] pf3;
-    private final int[] pf4;
-    private final int[] pf5;
-    private String[][] matrizImpr;
+    private final int[] puntoFijo1;
+    private final int[] puntoFijo2;
+    private final int[] puntoFijo3;
+    private final int[] puntoFijo4;
+    private final int[] puntoFijo5;
+    
+    // Matriz para la representación de los digitos
+    private String[][] matrizDigitos;
 
-    static final String CARACTER_VERTICAL = "|";
-    static final String CARACTER_HORIZONTAL = "-";
-    static final String POSICION_X = "X";
-    static final String POSICION_Y = "Y";
+    // Representacion de los caracteres usados para la representacion de los digitos
+    private static final String CARACTER_VERTICAL = "|";
+    private static final String CARACTER_HORIZONTAL = "-";
+    
+    // Variables para representar posicion x (filas) o y (columnas)
+    private static final String POSICION_X = "X";
+    private static final String POSICION_Y = "Y";
 
-    // TODO code application logic here
-    //String entrada = JOptionPane.showInputDialog("Digite el numero");
+    // Tamaño definido para la representación de los digitos
     private int size;
 
-    // Calcula el numero de filasDig
-    private int filasDig;
-    private int columDig;
-    private int totalFilas;
-    private int totalColum;
+    // Tamaño de cada digito individual
+    private int filasDigito;
+    private int columnasDigito;
+    
+    // Tamaño de las filas y columnas de la matrizDigitos
+    private int filasMatrizDigitos;
+    private int columnasMatrizDigitos;
 
     public ImpresorLCD() {
         // Inicializa variables
-        this.pf1 = new int[2];
-        this.pf2 = new int[2];
-        this.pf3 = new int[2];
-        this.pf4 = new int[2];
-        this.pf5 = new int[2];
+        this.puntoFijo1 = new int[2];
+        this.puntoFijo2 = new int[2];
+        this.puntoFijo3 = new int[2];
+        this.puntoFijo4 = new int[2];
+        this.puntoFijo5 = new int[2];
     }
 
     /**
@@ -59,9 +65,9 @@ public class ImpresorLCD {
         } 
         else 
         {
-            for (int i = 1; i <= size; i++) 
+            for (int x = 1; x <= size; x++) 
             {
-                int valor = punto[0] + i;
+                int valor = punto[0] + x;
                 matriz[valor][punto[1]] = caracter;
             }
         }
@@ -77,31 +83,31 @@ public class ImpresorLCD {
 
         switch (segmento) {
             case 1:
-                adicionarLinea(this.matrizImpr, this.pf1, POSICION_Y,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo1, POSICION_Y,
                         this.size, CARACTER_VERTICAL);
                 break;
             case 2:
-                adicionarLinea(this.matrizImpr, this.pf2, POSICION_Y,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo2, POSICION_Y,
                         this.size, CARACTER_VERTICAL);
                 break;
             case 3:
-                adicionarLinea(this.matrizImpr, this.pf5, POSICION_Y,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo5, POSICION_Y,
                         this.size, CARACTER_VERTICAL);
                 break;
             case 4:
-                adicionarLinea(this.matrizImpr, this.pf4, POSICION_Y,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo4, POSICION_Y,
                         this.size, CARACTER_VERTICAL);
                 break;
             case 5:
-                adicionarLinea(this.matrizImpr, this.pf1, POSICION_X,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo1, POSICION_X,
                         this.size, CARACTER_HORIZONTAL);
                 break;
             case 6:
-                adicionarLinea(this.matrizImpr, this.pf2, POSICION_X,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo2, POSICION_X,
                         this.size, CARACTER_HORIZONTAL);
                 break;
             case 7:
-                adicionarLinea(this.matrizImpr, this.pf3, POSICION_X,
+                adicionarLinea(this.matrizDigitos, this.puntoFijo3, POSICION_X,
                         this.size, CARACTER_HORIZONTAL);
                 break;
             default:
@@ -111,89 +117,14 @@ public class ImpresorLCD {
 
     /**
      *
-     * Metodo encargado de definir los segmentos que componen un digito y
+     * Metodo encargado de asignar los segmentos que componen un digito y
      * a partir de los segmentos adicionar la representacion del digito a la matriz
      *
-     * @param numero Digito
+     * @param digito Digito
      */
-    private void adicionarDigito(int numero) {
-
-        // Establece los segmentos de cada numero
-        List<Integer> segList = new ArrayList<>();
-
-        switch (numero) {
-            case 1:
-                segList.add(3);
-                segList.add(4);
-                break;
-            case 2:
-                segList.add(5);
-                segList.add(3);
-                segList.add(6);
-                segList.add(2);
-                segList.add(7);
-                break;
-            case 3:
-                segList.add(5);
-                segList.add(3);
-                segList.add(6);
-                segList.add(4);
-                segList.add(7);
-                break;
-            case 4:
-                segList.add(1);
-                segList.add(6);
-                segList.add(3);
-                segList.add(4);
-                break;
-            case 5:
-                segList.add(5);
-                segList.add(1);
-                segList.add(6);
-                segList.add(4);
-                segList.add(7);
-                break;
-            case 6:
-                segList.add(5);
-                segList.add(1);
-                segList.add(6);
-                segList.add(2);
-                segList.add(7);
-                segList.add(4);
-                break;
-            case 7:
-                segList.add(5);
-                segList.add(3);
-                segList.add(4);
-                break;
-            case 8:
-                segList.add(1);
-                segList.add(2);
-                segList.add(3);
-                segList.add(4);
-                segList.add(5);
-                segList.add(6);
-                segList.add(7);
-                break;
-            case 9:
-                segList.add(1);
-                segList.add(3);
-                segList.add(4);
-                segList.add(5);
-                segList.add(6);
-                segList.add(7);
-                break;
-            case 0:
-                segList.add(1);
-                segList.add(2);
-                segList.add(3);
-                segList.add(4);
-                segList.add(5);
-                segList.add(7);
-                break;
-            default:
-                break;
-        }
+    private void adicionarDigito(int digito) {
+    	
+        List<Integer> segList = ListaSegmentos.getList(digito);        
 
         Iterator<Integer> iterator = segList.iterator();
 
@@ -201,89 +132,132 @@ public class ImpresorLCD {
             adicionarSegmento(iterator.next());
         }
     }
+    
+    /**
+     * Calcula el numero de filas a usar por cada dígito y lo almacena en filasDigitos
+     */
+    private void calcularFilasDigitos() {
+    	this.filasDigito = (2 * this.size) + 3;
+    }
+    
+    /**
+     * Calcula el numero de columnas a usar por cada dígito y lo almacena en columnasDigitos
+     */
+    private void calcularColumnasDigitos() {
+    	this.columnasDigito = this.size + 2;
+    }
+    
+    /**
+     * Define la matrizDigitos en la que se almacenan todos los digitos a imprimir
+     * 
+     * @param cantidadDigitos Cantidad de digitos a imprimir
+     * @param espacio
+     */
+    private void definirMatrizDigitos(int cantidadDigitos, int espacio) {
+        this.filasMatrizDigitos = this.filasDigito;
+
+        // Calcula el total de columnas de la matriz en la que se almacenaran los digitos
+        this.columnasMatrizDigitos = (this.columnasDigito * cantidadDigitos)
+                + (espacio * cantidadDigitos);
+
+        this.matrizDigitos = new String[this.filasMatrizDigitos][this.columnasMatrizDigitos];
+    }
+
+    /**
+     * Inicializa la matrizDigitos con el string " " en cada celda
+     */
+	private void inicializarMatrizDigitos() {
+        for (int i = 0; i < this.filasMatrizDigitos; i++) {
+            for (int j = 0; j < this.columnasMatrizDigitos; j++) {
+                this.matrizDigitos[i][j] = " ";
+            }
+        }
+	}	
+
+    /**
+     * Valida que el caracter dado sea realmente un digito
+     * 
+     * @param digito Caracter a validar
+     * @throws IllegalArgumentException Indica si el caracter no es un digito
+     */
+	private void validarDigito(char digito) throws IllegalArgumentException {
+		if( ! Character.isDigit(digito))
+		{
+		    throw new IllegalArgumentException("Caracter " + digito
+		        + " no es un digito");
+		}
+	}
+
+    /**
+     * Calcula los puntos fijos para la matrizDigitos en el espacio 
+     * 	definido por las columnas de un solo digito
+     * 
+     * @param pivotX Columna de inicio del digito en matrizDigitos
+     */
+	private void calcularPuntosFijos(int pivotX) {
+		this.puntoFijo1[0] = 0;
+		this.puntoFijo1[1] = 0 + pivotX;
+
+		this.puntoFijo2[0] = (this.filasDigito / 2);
+		this.puntoFijo2[1] = 0 + pivotX;
+
+		this.puntoFijo3[0] = (this.filasDigito - 1);
+		this.puntoFijo3[1] = 0 + pivotX;
+
+		this.puntoFijo4[0] = (this.columnasDigito - 1);
+		this.puntoFijo4[1] = (this.filasDigito / 2) + pivotX;
+
+		this.puntoFijo5[0] = 0;
+		this.puntoFijo5[1] = (this.columnasDigito - 1) + pivotX;
+	}
 
     /**
      *
      * Metodo encargado de imprimir un numero
      *
      * @param size Tamaño Segmento Digitos
-     * @param numeroImp Numero a Imprimir
+     * @param numeroAImprimir Numero a Imprimir
      * @param espacio Espacio Entre digitos
+     * @throws IllegalArgumentException Indica que alguno de los caracteres en numeroAImprimir no es digito
      */    
-    private void imprimirNumero(int size, String numeroImp, int espacio) 
-    {
+    private void imprimirNumero(int size, String numeroAImprimir, int espacio) 
+    		throws IllegalArgumentException {
+    	
         int pivotX = 0;
         char[] digitos;
 
         this.size = size;
-
-        // Calcula el numero de filas cada digito
-        this.filasDig = (2 * this.size) + 3;
-
-        // Calcula el numero de columna de cada digito
-        this.columDig = this.size + 2;
-
-        // Calcula el total de filas de la matriz en la que se almacenaran los digitos
-        this.totalFilas = this.filasDig;
-
-        // Calcula el total de columnas de la matriz en la que se almacenaran los digitos
-        this.totalColum = (this.columDig * numeroImp.length())
-                + (espacio * numeroImp.length());
-
-        // crea matriz para almacenar los numero a imprimir
-        this.matrizImpr = new String[this.totalFilas][this.totalColum];
-
         // crea el arreglo de digitos
-        digitos = numeroImp.toCharArray();
+        digitos = numeroAImprimir.toCharArray();
 
-        // Inicializa matriz
-        for (int i = 0; i < this.totalFilas; i++) {
-            for (int j = 0; j < this.totalColum; j++) {
-                this.matrizImpr[i][j] = " ";
-            }
-        }
+        calcularFilasDigitos();
+        calcularColumnasDigitos();
+
+        definirMatrizDigitos(digitos.length, espacio);
+        inicializarMatrizDigitos();
 
         for (char digito : digitos) {
             
-            //Valida que el caracter sea un digito
-            if( ! Character.isDigit(digito))
-            {
-                throw new IllegalArgumentException("Caracter " + digito
-                    + " no es un digito");
-            }
-
+            validarDigito(digito);            
             int numero = Integer.parseInt(String.valueOf(digito));
 
-            //Calcula puntos fijos
-            this.pf1[0] = 0;
-            this.pf1[1] = 0 + pivotX;
-
-            this.pf2[0] = (this.filasDig / 2);
-            this.pf2[1] = 0 + pivotX;
-
-            this.pf3[0] = (this.filasDig - 1);
-            this.pf3[1] = 0 + pivotX;
-
-            this.pf4[0] = (this.columDig - 1);
-            this.pf4[1] = (this.filasDig / 2) + pivotX;
-
-            this.pf5[0] = 0;
-            this.pf5[1] = (this.columDig - 1) + pivotX;
-
-            pivotX = pivotX + this.columDig + espacio;
+            calcularPuntosFijos(pivotX);
+            pivotX = pivotX + this.columnasDigito + espacio;
 
             adicionarDigito(numero);
         }
 
         // Imprime matriz
-        for (int i = 0; i < this.totalFilas; i++) {
-            for (int j = 0; j < this.totalColum; j++) {
-                System.out.print(this.matrizImpr[i][j]);
+        for (int i = 0; i < this.filasMatrizDigitos; i++) {
+            for (int j = 0; j < this.columnasMatrizDigitos; j++) {
+                System.out.print(this.matrizDigitos[i][j]);
             }
             System.out.println();
         }
     }
 
+    ///////////////////////////////////////// MODIFICAR
+    
      /**
      *
      * Metodo encargado de procesar la entrada que contiene el size del segmento
@@ -291,72 +265,11 @@ public class ImpresorLCD {
      *
      * @param comando Entrada que contiene el size del segmento de los digito
      * y el numero a imprimir
-     * @param espacioDig Espacio Entre digitos
+     * @param espacioDigitos Espacio Entre digitos
      */  
-    public void procesar(String comando, int espacioDig) {
-        
-        String[] parametros;
-        
-        int tam;
+    public void procesar(Comando comando, int espacioDigitos) throws IllegalArgumentException {       
+        imprimirNumero(comando.getSize(), comando.getDigitos(), espacioDigitos);
 
-        if (!comando.contains(",")) {
-            throw new IllegalArgumentException("Cadena " + comando
-                    + " no contiene caracter ,");
-        }
-        
-        //Se hace el split de la cadena
-        parametros = comando.split(",");
-        
-        //Valida la cantidad de parametros
-        if(parametros.length>2)
-        {
-           throw new IllegalArgumentException("Cadena " + comando
-                    + " contiene mas caracter ,"); 
-        }
-        
-        //Valida la cantidad de parametros
-        if(parametros.length<2)
-        {
-           throw new IllegalArgumentException("Cadena " + comando
-                    + " no contiene los parametros requeridos"); 
-        }
-        
-        //Valida que el parametro size sea un numerico
-        if(isNumeric(parametros[0]))
-        {
-            tam = Integer.parseInt(parametros[0]);
-            
-            // se valida que el size este entre 1 y 10
-            if(tam <1 || tam >10)
-            {
-                throw new IllegalArgumentException("El parametro size ["+tam
-                        + "] debe estar entre 1 y 10");
-            }
-        }
-        else
-        {
-            throw new IllegalArgumentException("Parametro Size [" + parametros[0]
-                    + "] no es un numero");
-        }
-
-        // Realiza la impresion del numero
-        imprimirNumero(tam, parametros[1],espacioDig);
-
-    }
-
-    /**
-     *
-     * Metodo encargado de validar si una cadena es numerica
-     *
-     * @param cadena Cadena
-     */  
-    static boolean isNumeric(String cadena) {
-        try {
-            Integer.parseInt(cadena);
-            return true;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
     }
 
 }
