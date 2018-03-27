@@ -24,7 +24,7 @@ public class ListaSegmentos {
 	 *  
 	 */
 
-	private static HashMap<Integer, List<Integer>> segmentosDigitos = definirSegmentos(); 
+	private static final HashMap<Integer, List<Integer>> SEGMENTOS_DIGITOS = definirSegmentos(); 
 	private static HashMap<Integer, List<Integer>> definirSegmentos() {
 		HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		
@@ -100,7 +100,7 @@ public class ListaSegmentos {
 	}
 	
 	public static List<Integer> getList(int digito) {
-		return segmentosDigitos.get(digito);
+		return SEGMENTOS_DIGITOS.get(digito);
 	}
 
 }

@@ -154,6 +154,7 @@ public class ImpresorLCD {
     
     /**
      * Define la matrizDigitos en la que se almacenan todos los digitos a imprimir
+     * Esta es inicializada con strings " "
      * 
      * @param cantidadDigitos Cantidad de digitos a imprimir
      * @param espacio
@@ -166,18 +167,13 @@ public class ImpresorLCD {
                 + (espacio * cantidadDigitos);
 
         this.matrizDigitos = new String[this.filasMatrizDigitos][this.columnasMatrizDigitos];
-    }
-
-    /**
-     * Inicializa la matrizDigitos con el string " " en cada celda
-     */
-	private void inicializarMatrizDigitos() {
+        
         for (int i = 0; i < this.filasMatrizDigitos; i++) {
             for (int j = 0; j < this.columnasMatrizDigitos; j++) {
                 this.matrizDigitos[i][j] = " ";
             }
         }
-	}	
+    }
 
     /**
      * Valida que el caracter dado sea realmente un digito
@@ -252,7 +248,6 @@ public class ImpresorLCD {
         calcularColumnasDigitos();
 
         definirMatrizDigitos(digitos.length, espacio);
-        inicializarMatrizDigitos();
 
         for (char digito : digitos) {
             
